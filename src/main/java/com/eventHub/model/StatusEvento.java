@@ -1,6 +1,6 @@
 package com.eventHub.model;
 
-public enum Status {
+public enum StatusEvento {
     ATIVO,
     CANCELADO
 }

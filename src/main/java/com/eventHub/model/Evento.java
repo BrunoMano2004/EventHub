@@ -25,7 +25,7 @@ public class Evento {
 
     private Double preco;
 
-    private Status status;
+    private StatusEvento status;
 
     private Timestamp dataCriacao;
 
