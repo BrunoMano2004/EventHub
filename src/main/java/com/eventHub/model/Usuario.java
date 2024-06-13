@@ -30,7 +30,7 @@ public class Usuario {
 
     private String telefone;
 
-    private Perfil perfil;
+    private PerfilUsuario perfil;
 
     private Timestamp dataCriacao;
 }
