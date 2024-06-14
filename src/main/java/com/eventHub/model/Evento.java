@@ -1,12 +1,15 @@
 package com.eventHub.model;
 
+import com.eventHub.dto.evento.CadastroEventoDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.SimpleFormatter;
 
 @Entity
 @Getter
@@ -24,9 +27,13 @@ public class Evento {
 
     private String descricao;
 
-    private Timestamp data_inicio;
+    private String dataInicio;
 
-    private Timestamp data_fim;
+    private String dataEncerramento;
+
+    private String horarioInicio;
+
+    private String horarioEncerramento;
 
     private String local;
 
@@ -39,7 +46,24 @@ public class Evento {
 
     private Timestamp dataCriacao;
 
+    private String imagem;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "organizador_id")
     private Usuario usuario;
+
+    public Evento(CadastroEventoDto dto, Usuario usuario) {
+        this.nome = dto.nome();
+        this.descricao = dto.descricao();
+        this.horarioInicio = dto.horarioInicio();
+        this.horarioEncerramento = dto.horarioEncerramento();
+        this.dataInicio = dto.dataInicio();
+        this.dataEncerramento = dto.dataEncerramento();
+        this.local = dto.local();
+        this.capacidade = dto.capacidade();
+        this.preco = dto.preco();
+        this.status = StatusEvento.ATIVO;
+        this.imagem = dto.imagem();
+        this.usuario = usuario;
+    }
 }

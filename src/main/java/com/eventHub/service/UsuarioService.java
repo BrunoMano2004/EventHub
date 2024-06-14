@@ -12,9 +12,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public void cadastrarUsuarioParticipante(CadastroUsuarioDto dto) {
+    public void cadastrarUsuario(CadastroUsuarioDto dto) {
         Usuario usuario = new Usuario();
-        usuario.cadastrarUsuarioParticipante(dto);
+        usuario.cadastrarUsuario(dto);
         usuarioRepository.save(usuario);
     }
 }

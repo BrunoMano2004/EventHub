@@ -32,11 +32,14 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private PerfilUsuario perfil;
 
-    public void cadastrarUsuarioParticipante(CadastroUsuarioDto dto){
+    public void cadastrarUsuario(CadastroUsuarioDto dto){
         this.nome = dto.nome();
         this.email = dto.email();
         this.telefone = dto.telefone();
         this.senha = dto.senha();
-        this.perfil = PerfilUsuario.PARTICIPANTE;
+        if (dto.perfil().equalsIgnoreCase("ORGANIZADOR") || dto.perfil().equalsIgnoreCase("PARTICIPANTE"))
+        {
+            this.perfil = PerfilUsuario.valueOf(dto.perfil());
+        }
     }
 }

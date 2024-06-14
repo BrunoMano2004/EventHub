@@ -27,6 +27,16 @@
             <label for="senha">Senha:</label>
             <input type="password" class="form-control" id="message" name="senha">
         </div>
+        <label for="perfil">Tipo de Usuário:</label>
+        <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+            <label class="btn btn-primary flex-fill">
+                <input type="radio" name="perfil" id="participant" autocomplete="off" value="PARTICIPANTE"> Participante
+            </label>
+            <label class="btn btn-primary flex-fill ml-2">
+                <input type="radio" name="perfil" id="organizer" autocomplete="off" value="ORGANIZADOR"> Organizador
+            </label>
+        </div>
+        </br>
         <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
     </form>
 </div>

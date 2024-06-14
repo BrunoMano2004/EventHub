@@ -1,0 +1,1 @@
+alter table eventos add column imagem varchar(500)

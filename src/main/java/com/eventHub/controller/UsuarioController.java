@@ -17,15 +17,15 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/cadastro/participante")
-    public String cadastroUsuarioParticipante(){
+    @GetMapping("/cadastro")
+    public String cadastroUsuario(){
         return "cadastroParticipante";
     }
 
-    @PostMapping("/cadastro/participante")
+    @PostMapping("/cadastro")
     @Transactional
-    public String cadastroUsuarioParticipantePost(@Valid CadastroUsuarioDto dto){
-        usuarioService.cadastrarUsuarioParticipante(dto);
-        return "redirect:/usuarios/cadastro/participante";
+    public String cadastroUsuarioPost(@Valid CadastroUsuarioDto dto){
+        usuarioService.cadastrarUsuario(dto);
+        return "redirect:/usuarios/cadastro";
     }
 }

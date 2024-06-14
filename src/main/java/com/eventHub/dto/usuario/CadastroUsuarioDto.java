@@ -2,6 +2,7 @@ package com.eventHub.dto.usuario;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record CadastroUsuarioDto(
 
@@ -16,5 +17,8 @@ public record CadastroUsuarioDto(
         String telefone,
 
         @NotBlank(message = "Senha não pode estar vazia!")
-        String senha) {
+        String senha,
+
+        @NotBlank(message = "Perfil não pode estar vazio!")
+        String perfil) {
 }

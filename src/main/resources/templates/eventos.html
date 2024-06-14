@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Eventos - EventHub</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .banner {
+            background: url('https://via.placeholder.com/1920x300') no-repeat center center;
+            background-size: cover;
+            height: 300px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .banner h1 {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <!-- Barra de Navegação -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">EventHub</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/eventos/cadastrar}">Criar Evento</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar eventos" aria-label="Pesquisar">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                    </form>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Login</button>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-outline-secondary my-2 my-sm-0 ml-2" th:href="@{/usuarios/cadastro}">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <h1 class="mb-4 text-center">Catálogo de Eventos</h1>
+    <div class="row">
+
+        <div class="col-md-4 mb-4" th:each="evento : ${eventos}">
+            <div class="card">
+                <img th:src="${evento.imagem}" class="card-img-top" alt="https://via.placeholder.com/150">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${evento.nome}"></h5>
+                    <p class="card-text" th:text="${evento.descricao}"></p>
+                    <p class="card-text" th:text="${evento.dataInicio}"></p>
+                    <p class="card-text" th:text="${evento.horarioInicio}"></p>
+                    <p class="card-text" th:text="${evento.local}"></p>
+                    <p class="card-text" th:text="${evento.preco}"></p>
+                    <button class="btn btn-primary btn-block">Inscrever-se</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- jQuery e Bootstrap JS (coloque no final do body para melhor performance) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

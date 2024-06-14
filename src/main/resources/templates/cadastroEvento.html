@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Evento - EventHub</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<!-- Barra de Navegação -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">EventHub</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/eventos}">Eventos</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Login</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-outline-secondary my-2 my-sm-0 ml-2" type="button">Cadastro</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Conteúdo Principal -->
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Cadastro de Evento</h2>
+    <form method="post" enctype="multipart/form-data">
+        <!-- Campos do Formulário para Cadastro de Evento -->
+        <div class="form-group">
+            <label for="nome">Nome do Evento</label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do evento" required>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Descrição do Evento</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="3" placeholder="Digite a descrição do evento" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="dataInicio">Data de Início</label>
+            <input type="date" class="form-control" id="dataInicio" name="dataInicio" required>
+        </div>
+        <div class="form-group">
+            <label for="dataFim">Data de Término</label>
+            <input type="date" class="form-control" id="dataFim" name="dataEncerramento" required>
+        </div>
+        <div class="form-group">
+            <label for="dataInicio">Horário de Início</label>
+            <input type="time" class="form-control" name="horarioInicio" required>
+        </div>
+        <div class="form-group">
+            <label for="dataFim">Horário de Término</label>
+            <input type="time" class="form-control" name="horarioEncerramento" required>
+        </div>
+        <div class="form-group">
+            <label for="local">Local do Evento</label>
+            <input type="text" class="form-control" id="local" name="local" placeholder="Digite o local do evento" required>
+        </div>
+        <div class="form-group">
+            <label for="capacidade">Capacidade de Participantes</label>
+            <input type="number" class="form-control" id="capacidade" name="capacidade" min="1" placeholder="Informe a capacidade de participantes" required>
+        </div>
+        <div class="form-group">
+            <label for="preco">Preço do Evento</label>
+            <input type="number" class="form-control" id="preco" name="preco" min="0.0" step="0.01" placeholder="Informe o preço do evento" required>
+        </div>
+        <div class="form-group">
+            <label for="imagem">Link da Imagem do Evento</label>
+            <input type="text" class="form-control" id="imagem" name="imagem">
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar Evento</button>
+    </form>
+</div>
+
+<!-- jQuery e Bootstrap JS (coloque no final do body para melhor performance) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
