@@ -4,6 +4,6 @@ create table usuarios(
     email varchar(100) unique not null,
     senha varchar(100) not null,
     telefone varchar(100),
-    perfil enum('organizador', 'participante', 'administrador') not null,
+    perfil varchar(100) not null,
     data_criacao timestamp default current_timestamp
 );

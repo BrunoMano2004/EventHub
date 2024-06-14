@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "eventos")
 public class Evento {
 
     @Id
@@ -33,6 +34,7 @@ public class Evento {
 
     private Double preco;
 
+    @Enumerated(EnumType.STRING)
     private StatusEvento status;
 
     private Timestamp dataCriacao;

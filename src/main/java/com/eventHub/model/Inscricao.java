@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "inscricoes")
 public class Inscricao {
 
     @Id
@@ -21,6 +22,7 @@ public class Inscricao {
 
     private Timestamp dataInscricao;
 
+    @Enumerated(EnumType.STRING)
     private StatusInscricao status;
 
     @ManyToOne(fetch = FetchType.LAZY)

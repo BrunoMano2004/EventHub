@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "notificacoes")
 public class Notificacao {
 
     @Id

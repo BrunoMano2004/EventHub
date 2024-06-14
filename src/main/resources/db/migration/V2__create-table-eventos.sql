@@ -8,7 +8,7 @@ create table eventos(
     local VARCHAR(255) NOT NULL,
     capacidade INT NOT NULL,
     preco DECIMAL(10, 2) NOT NULL,
-    status ENUM('ativo', 'cancelado') DEFAULT 'ativo',
+    status varchar(100) DEFAULT 'ativo',
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (organizador_id) REFERENCES usuarios(id)
 )

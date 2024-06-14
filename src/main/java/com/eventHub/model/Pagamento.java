@@ -13,6 +13,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "pagamentos")
 public class Pagamento {
 
     @Id
@@ -21,7 +22,11 @@ public class Pagamento {
 
     private Double valor;
 
+    @Enumerated(EnumType.STRING)
     private MetodoPagamento metodoPagamento;
+
+    @Enumerated(EnumType.STRING)
+    private StatusPagamento status;
 
     private Timestamp dataPagamento;
 
