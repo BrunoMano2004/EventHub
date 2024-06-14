@@ -30,6 +30,15 @@ public class EventoController {
         return mv;
     }
 
+    @GetMapping("/pesquisar")
+    public ModelAndView listarEventosPesquisados(String nomeEvento){
+        ModelAndView mv = new ModelAndView("eventos");
+        List<ListagemEventosDto> eventos = eventoService.listarEventosPeloNome(nomeEvento);
+
+        mv.addObject("eventos", eventos);
+        return mv;
+    }
+
     @GetMapping("/cadastrar")
     public String cadastrarEvento(){
         return "cadastroEvento";

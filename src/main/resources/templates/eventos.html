@@ -36,8 +36,8 @@
                     <a class="nav-link" th:href="@{/eventos/cadastrar}">Criar Evento</a>
                 </li>
                 <li class="nav-item">
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar eventos" aria-label="Pesquisar">
+                    <form class="form-inline" th:action="@{/eventos/pesquisar}" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar eventos" name="nomeEvento" aria-label="Pesquisar">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
                     </form>
                 </li>

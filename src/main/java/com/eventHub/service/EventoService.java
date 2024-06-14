@@ -35,4 +35,13 @@ public class EventoService {
         Evento evento = new Evento(dto, usuario);
         eventoRepository.save(evento);
     }
+
+    public List<ListagemEventosDto> listarEventosPeloNome(String nomeEvento){
+        List<Evento> eventos = eventoRepository.encontrarEventosPeloNome(nomeEvento);
+        List<ListagemEventosDto> dtos = eventos.stream()
+                .map(ListagemEventosDto::new)
+                .toList();
+
+        return dtos;
+    }
 }
