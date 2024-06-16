@@ -1,26 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Eventos - EventHub</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .banner {
-            background: url('https://via.placeholder.com/1920x300') no-repeat center center;
-            background-size: cover;
-            height: 300px;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .banner h1 {
-            font-size: 3rem;
-        }
-    </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -43,33 +28,42 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="button">Login</button>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-outline-primary my-2 my-sm-0" th:href="@{/login}">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
                     <a class="btn btn-outline-secondary my-2 my-sm-0 ml-2" th:href="@{/usuarios/cadastro}">Cadastro</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
                 </li>
             </ul>
         </div>
     </nav>
-
     <h1 class="mb-4 text-center">Catálogo de Eventos</h1>
     <div class="row">
 
         <div class="col-md-4 mb-4" th:each="evento : ${eventos}">
-            <div class="card">
-                <img th:src="${evento.imagem}" class="card-img-top" alt="https://via.placeholder.com/150">
-                <div class="card-body">
+            <div class="card h-100 shadow-sm">
+                <img th:src="${evento.imagem}" class="card-img-top" alt="Imagem do evento" onerror="this.src='https://via.placeholder.com/150';">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title" th:text="${evento.nome}"></h5>
                     <p class="card-text" th:text="${evento.descricao}"></p>
-                    <p class="card-text" th:text="${evento.dataInicio}"></p>
-                    <p class="card-text" th:text="${evento.horarioInicio}"></p>
-                    <p class="card-text" th:text="${evento.local}"></p>
-                    <p class="card-text" th:text="${evento.preco}"></p>
-                    <button class="btn btn-primary btn-block">Inscrever-se</button>
+                    <ul class="list-unstyled">
+                        <li><strong>Data:</strong> <span th:text="${evento.dataInicio}"></span></li>
+                        <li><strong>Horário:</strong> <span th:text="${evento.horarioInicio}"></span></li>
+                        <li><strong>Local:</strong> <span th:text="${evento.local}"></span></li>
+                        <li><strong>Preço:</strong> <span th:text="${evento.preco}"></span></li>
+                    </ul>
+                    <div class="mt-auto">
+                        <button class="btn btn-primary btn-block mt-3">Inscrever-se</button>
+                    </div>
                 </div>
             </div>
         </div>
+
 
     </div>
 </div>
