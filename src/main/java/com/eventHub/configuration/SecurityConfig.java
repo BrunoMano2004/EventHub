@@ -3,6 +3,7 @@ package com.eventHub.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,11 +16,18 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
+    private final UserDetailsService userDetailsService;
+
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/eventos/cadastrar").hasRole("ORGANIZER") // Permite acesso a qualquer URL que comece com /public sem autenticação
+                        .requestMatchers("/eventos/cadastrar").hasRole("ORGANIZER")
                         .requestMatchers("/eventos").permitAll()
                         .requestMatchers("/eventos/pesquisar").permitAll()
                         .requestMatchers("/usuarios/cadastro").permitAll()
@@ -38,28 +46,6 @@ public class SecurityConfig {
                         .expiredUrl("/login?expired=true") // Redireciona para a página de login se a sessão expirar
                 );
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-                .username("user") // Define o nome de usuário
-                .password(passwordEncoder().encode("senha")) // Define a senha do usuário, codificada usando BCrypt
-                .roles("USER") // Define o papel do usuário
-                .build();
-
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("senha"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails organizer = User.builder()
-                .username("organizer")
-                .password(passwordEncoder().encode("senha"))
-                .roles("ORGANIZER")
-                .build();
-        return new InMemoryUserDetailsManager(user, admin, organizer); // Usa um gerenciador de usuários em memória
     }
 
     @Bean

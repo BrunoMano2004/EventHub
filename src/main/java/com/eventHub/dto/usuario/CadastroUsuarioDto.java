@@ -14,11 +14,5 @@ public record CadastroUsuarioDto(
         String email,
 
         @NotBlank(message = "Telefone não pode estar vazio!")
-        String telefone,
-
-        @NotBlank(message = "Senha não pode estar vazia!")
-        String senha,
-
-        @NotBlank(message = "Perfil não pode estar vazio!")
-        String perfil) {
+        String telefone ){
 }

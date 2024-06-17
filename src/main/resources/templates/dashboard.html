@@ -6,12 +6,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">EventHub</a>
+    <a class="navbar-brand" th:href="@{/eventos}">EventHub</a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/create-event}">Criar Evento</a>
-            </li>
             <li class="nav-item">
                 <form th:action="@{/logout}" method="post">
                     <button type="submit" class="btn btn-link nav-link">Logout</button>
@@ -21,7 +18,23 @@
     </div>
 </nav>
 <div class="container">
-    <h1>Welcome, <span th:text="${username}">User</span></h1>
+    <h1 class="mt-4 mb-4">Dados do Usuário</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" th:value="${usuario.nome}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" th:value="${usuario.email}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" class="form-control" id="telefone" th:value="${usuario.telefone}" readonly>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
