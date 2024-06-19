@@ -26,14 +26,23 @@ public class Usuario {
 
     private String email;
 
+    private String identidade;
+
+    private TipoDocumento tipoDocumento;
+
     private String telefone;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Login login;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Endereco endereco;
+
     public void cadastrarUsuario(CadastroUsuarioDto dto){
         this.nome = dto.nome();
         this.email = dto.email();
         this.telefone = dto.telefone();
+        this.identidade = dto.identidade();
+        this.tipoDocumento = TipoDocumento.valueOf(dto.tipoDocumento());
     }
 }

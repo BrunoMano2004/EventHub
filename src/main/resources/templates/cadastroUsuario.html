@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Participante - EventHub</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Cadastro de Participante</h1>
+    <form id="participantForm" method="post">
+        <div class="form-group">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" class="form-control" id="name" name="nome" required>
+        </div>
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="identidade">CPF/CNPJ:</label>
+            <input type="text" class="form-control" id="identidade" name="identidade" required>
+        </div>
+        <label for="documento">Tipo de documento:</label>
+        <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+            <label class="btn btn-primary flex-fill">
+                <input type="radio" name="tipoDocumento" id="cpf" autocomplete="off" value="CPF"> CPF
+            </label>
+            <label class="btn btn-primary flex-fill ml-2">
+                <input type="radio" name="tipoDocumento" id="cnpj" autocomplete="off" value="CNPJ"> CNPJ
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input type="tel" class="form-control" id="phone" pattern="\(\d{2}\) \d{4,5}-\d{4}" name="telefone" required>
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" class="form-control" id="message" name="senha">
+        </div>
+        <label for="perfil">Tipo de Usuário:</label>
+        <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+            <label class="btn btn-primary flex-fill">
+                <input type="radio" name="role" id="participant" autocomplete="off" value="USER"> Participante
+            </label>
+            <label class="btn btn-primary flex-fill ml-2">
+                <input type="radio" name="role" id="organizer" autocomplete="off" value="ORGANIZER"> Organizador
+            </label>
+        </div>
+        <div class="mb-3">
+            <label for="logradouro" class="form-label">Logradouro:</label>
+            <input type="text" class="form-control" id="logradouro" name="logradouro" required>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="numero" class="form-label">Número:</label>
+                <input type="text" class="form-control" id="numero" name="numero" required>
+            </div>
+            <div class="col-md-6">
+                <label for="complemento" class="form-label">Complemento:</label>
+                <input type="text" class="form-control" id="complemento" name="complemento">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="cidade" class="form-label">Cidade:</label>
+                <input type="text" class="form-control" id="cidade" name="cidade" required>
+            </div>
+            <div class="col-md-6">
+                <label for="uf" class="form-label">UF:</label>
+                <select class="form-select" id="uf" name="uf" required>
+                    <option value="">Selecione...</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="cep" class="form-label">CEP:</label>
+            <input type="text" class="form-control" id="cep" name="cep" required th:maxlength="8">
+        </div>
+        </br>
+        <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('cep').addEventListener('blur', function() {
+        var cep = this.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            fetch('https://viacep.com.br/ws/' + cep + '/json')
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar o endereço.');
+                    }
+                    return response.json();
+                })
+                .then(function(data) {
+                    if (data) {
+                        document.getElementById('logradouro').value = data.logradouro;
+                        document.getElementById('numero').value = '';
+                        document.getElementById('complemento').value = data.complemento;
+                        document.getElementById('cidade').value = data.localidade;
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Erro:', error);
+                    alert('Erro ao buscar o endereço. Por favor, verifique o CEP informado.');
+                });
+        }
+    });
+});
+
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

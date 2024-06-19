@@ -36,7 +36,7 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
 
         Login login = new Login();
-        login.setUsername(loginDto.username());
+        login.setUsername(usuarioDto.identidade());
         login.setSenha(passwordEncoder.encode(loginDto.senha()));
         login.setUsuario(usuario);
         login.setAtivo(true);

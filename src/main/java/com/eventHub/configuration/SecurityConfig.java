@@ -39,7 +39,9 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/eventos")
                         .permitAll() // Permite acesso à página de login para todos
                 )
-                .logout(LogoutConfigurer::permitAll // Permite logout para todos
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutSuccessUrl("/eventos")// Permite logout para todos
                 )
                 .sessionManagement(session -> session
                         .maximumSessions(1) // Limita a sessão para um único login por vez

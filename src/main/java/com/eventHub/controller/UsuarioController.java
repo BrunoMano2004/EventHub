@@ -27,7 +27,7 @@ public class UsuarioController {
 
     @GetMapping("/cadastro")
     public String cadastroUsuario(){
-        return "cadastroParticipante";
+        return "cadastroUsuario";
     }
 
     @PostMapping("/cadastro")
