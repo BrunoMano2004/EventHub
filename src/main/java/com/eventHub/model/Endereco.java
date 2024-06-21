@@ -1,6 +1,7 @@
 package com.eventHub.model;
 
-import com.eventHub.dto.CadastroEnderecoDto;
+import com.eventHub.dto.endereco.AtualizacaoEnderecoDto;
+import com.eventHub.dto.endereco.CadastroEnderecoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class Endereco {
     @OneToOne(fetch = FetchType.EAGER)
     private Usuario usuario;
 
-    public Endereco(CadastroEnderecoDto dto){
+    public Endereco(CadastroEnderecoDto dto, Usuario usuario){
         this.logradouro = dto.logradouro();
         this.numero = dto.numero();
         this.bairro = dto.bairro();
@@ -44,5 +45,17 @@ public class Endereco {
         this.uf = dto.uf();
         this.cep = dto.cep();
         this.complemento = dto.complemento();
+        this.usuario = usuario;
+    }
+
+    public Endereco atualizarEndereco(AtualizacaoEnderecoDto dto) {
+        this.logradouro = dto.logradouro();
+        this.numero = dto.numero();
+        this.bairro = dto.bairro();
+        this.cidade = dto.cidade();
+        this.uf = dto.uf();
+        this.cep = dto.cep();
+        this.complemento = dto.complemento();
+        return this;
     }
 }

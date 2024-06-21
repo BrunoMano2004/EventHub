@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard</title>
+    <title>Dados do Usuário</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+        .hidden {
+          display: none;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,22 +25,125 @@
 </nav>
 <div class="container">
     <h1 class="mt-4 mb-4">Dados do Usuário</h1>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" id="nome" th:value="${usuario.nome}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" th:value="${usuario.email}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="telefone">Telefone:</label>
-                <input type="text" class="form-control" id="telefone" th:value="${usuario.telefone}" readonly>
+    <form method="post" th:action="@{/usuarios/dashboard}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="hidden">
+                    <label for="id">Id:</label>
+                    <input type="number" id="id" name="id" th:value="${usuario.id}">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" th:value="${usuario.nome}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" th:value="${usuario.email}">
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" class="form-control" id="telefone" name="telefone" th:value="${usuario.telefone}">
+                </div>
+                <div class="form-group">
+                    <label for="identidade">Identidade:</label>
+                    <input type="text" class="form-control" id="identidade" name="identidade" th:value="${usuario.identidade}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo de identidade:</label>
+                    <input type="text" class="form-control" id="tipoDocumento" name="tipoDocumento" th:value="${usuario.tipoDocumento}" readonly>
+                </div>
+                <h2 class="mt-4 mb-4">Dados de Endereco</h2>
+                <div class="form-group">
+                    <label for="cep">CEP:</label>
+                    <input type="text" class="form-control" id="cep" name="cep" th:value="${endereco.cep}">
+                </div>
+                <div class="form-group">
+                    <label for="logradouro">Logradouro:</label>
+                    <input type="text" class="form-control" id="logradouro" name="logradouro" th:value="${endereco.logradouro}">
+                </div>
+                <div class="form-group">
+                    <label for="numero">Numero:</label>
+                    <input type="number" class="form-control" id="numero" name="numero" th:value="${endereco.numero}">
+                </div>
+                <div class="form-group">
+                    <label for="bairro">Bairro:</label>
+                    <input type="text" class="form-control" id="bairro" name="bairro" th:value="${endereco.bairro}">
+                </div>
+                <div class="form-group">
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" th:value="${endereco.cidade}">
+                </div>
+                <div class="form-group">
+                    <label for="uf" class="form-label">UF:</label>
+                    <select class="form-control" id="uf" name="uf">
+                        <option value="">Selecione...</option>
+                        <option value="AC" th:selected="${endereco.uf == 'AC'}">Acre</option>
+                        <option value="AL" th:selected="${endereco.uf == 'AL'}">Alagoas</option>
+                        <option value="AP" th:selected="${endereco.uf == 'AP'}">Amapá</option>
+                        <option value="AM" th:selected="${endereco.uf == 'AM'}">Amazonas</option>
+                        <option value="BA" th:selected="${endereco.uf == 'BA'}">Bahia</option>
+                        <option value="CE" th:selected="${endereco.uf == 'CE'}">Ceará</option>
+                        <option value="DF" th:selected="${endereco.uf == 'DF'}">Distrito Federal</option>
+                        <option value="ES" th:selected="${endereco.uf == 'ES'}">Espírito Santo</option>
+                        <option value="GO" th:selected="${endereco.uf == 'GO'}">Goiás</option>
+                        <option value="MA" th:selected="${endereco.uf == 'MA'}">Maranhão</option>
+                        <option value="MT" th:selected="${endereco.uf == 'MT'}">Mato Grosso</option>
+                        <option value="MS" th:selected="${endereco.uf == 'MS'}">Mato Grosso do Sul</option>
+                        <option value="MG" th:selected="${endereco.uf == 'MG'}">Minas Gerais</option>
+                        <option value="PA" th:selected="${endereco.uf == 'PA'}">Pará</option>
+                        <option value="PB" th:selected="${endereco.uf == 'PB'}">Paraíba</option>
+                        <option value="PR" th:selected="${endereco.uf == 'PR'}">Paraná</option>
+                        <option value="PE" th:selected="${endereco.uf == 'PE'}">Pernambuco</option>
+                        <option value="PI" th:selected="${endereco.uf == 'PI'}">Piauí</option>
+                        <option value="RJ" th:selected="${endereco.uf == 'RJ'}">Rio de Janeiro</option>
+                        <option value="RN" th:selected="${endereco.uf == 'RN'}">Rio Grande do Norte</option>
+                        <option value="RS" th:selected="${endereco.uf == 'RS'}">Rio Grande do Sul</option>
+                        <option value="RO" th:selected="${endereco.uf == 'RO'}">Rondônia</option>
+                        <option value="RR" th:selected="${endereco.uf == 'RR'}">Roraima</option>
+                        <option value="SC" th:selected="${endereco.uf == 'SC'}">Santa Catarina</option>
+                        <option value="SP" th:selected="${endereco.uf == 'SP'}">São Paulo</option>
+                        <option value="SE" th:selected="${endereco.uf == 'SE'}">Sergipe</option>
+                        <option value="TO" th:selected="${endereco.uf == 'TO'}">Tocantins</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="complemento">Complemento:</label>
+                    <input type="text" class="form-control" id="complemento" name="complemento" th:value="${endereco.complemento}">
+                </div>
+                <button type="submit" class="btn btn-primary" id="updateButton">Atualizar dados</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
+<script>
+        document.getElementById('cep').addEventListener('blur', function() {
+            var cep = this.value.replace(/\D/g, '');
+            if (cep.length === 8) {
+                fetch('https://viacep.com.br/ws/' + cep + '/json')
+                    .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('Erro ao buscar o endereço.');
+                        }
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        if (data) {
+                            document.getElementById('logradouro').value = data.logradouro;
+                            document.getElementById('cidade').value = data.localidade;
+                            document.getElementById('bairro').value = data.bairro;
+
+                            // Trigger input event to check for form changes
+                            document.getElementById('logradouro').dispatchEvent(new Event('input'));
+                            document.getElementById('cidade').dispatchEvent(new Event('input'));
+                            document.getElementById('bairro').dispatchEvent(new Event('input'));
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Erro:', error);
+                    });
+            }
+        });
+    });
+</script>
 </body>
 </html>

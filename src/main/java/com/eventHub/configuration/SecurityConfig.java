@@ -2,6 +2,7 @@ package com.eventHub.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
@@ -17,9 +18,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(UserDetailsService userDetailsService) {
+    public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -32,6 +35,10 @@ public class SecurityConfig {
                         .requestMatchers("/eventos/pesquisar").permitAll()
                         .requestMatchers("/usuarios/cadastro").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/validar/**").permitAll()
+                        .requestMatchers("/recuperarSenha").permitAll()
+                        .requestMatchers("/redefinirSenha").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().authenticated() // Qualquer outra requisição precisa ser autenticada
                 )
                 .formLogin(form -> form
@@ -48,10 +55,5 @@ public class SecurityConfig {
                         .expiredUrl("/login?expired=true") // Redireciona para a página de login se a sessão expirar
                 );
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Define o codificador de senha usando BCrypt
     }
 }

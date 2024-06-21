@@ -3,9 +3,41 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .password-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .show-password-button {
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            margin-left: -30px;
+            outline: none;
+        }
+
+        .show-password-button i {
+            font-size: 1.2em;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .show-password-button i.open {
+            transform: rotate(0);
+        }
+
+        .show-password-button i.close {
+            transform: rotate(-45deg);
+        }
+
+        .show-password-button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
+<div class="container mt-5">
     <h1>Login</h1>
     <script th:if="${param.error}">
         alert("Senha ou Username inválido!")
@@ -15,10 +47,14 @@
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" class="form-control"/>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="form-control"/>
+        <div class="password-container">
+            <input type="password" id="password" name="password" class="form-control" placeholder="Digite sua senha">
+            <button id="togglePassword" class="show-password-button">
+                <i class="fas fa-eye open"></i>
+                <i class="fas fa-eye-slash close" style="display: none;"></i>
+            </button>
         </div>
+        <a th:href="@{/recuperarSenha}">Esqueci a senha</a>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
@@ -27,5 +63,27 @@
         </div>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const passwordInput = document.getElementById('password');
+        const openIcon = this.querySelector('.open');
+        const closeIcon = this.querySelector('.close');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            openIcon.style.display = 'none';
+            closeIcon.style.display = 'inline';
+        } else {
+            passwordInput.type = 'password';
+            openIcon.style.display = 'inline';
+            closeIcon.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>

@@ -19,16 +19,18 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+
     @Autowired
     private LoginRepository loginRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Login login =
-                loginRepository.findByUsername(username)
+                loginRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+        System.out.println(login);
 
-        return new User(login.getUsername(),
+        return new User(login.getEmail(),
                 login.getSenha(),
                 login.isAtivo(),
                 true, true, true,

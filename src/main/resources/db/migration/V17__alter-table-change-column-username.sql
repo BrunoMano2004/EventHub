@@ -1,0 +1,1 @@
+alter table logins change column username email varchar(100) not null unique

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Senha</title>
+    <!-- Incluindo o CSS do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card" style="width: 100%; max-width: 400px;">
+        <div class="card-body">
+            <h5 class="card-title text-center">Alterar Senha</h5>
+            <form id="changePasswordForm" method="post">
+                <div class="form-group">
+                    <label for="newPassword">Nova Senha:</label>
+                    <input type="password" class="form-control" id="newPassword" name="senha" placeholder="Digite a nova senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Senha:</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirme a nova senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+                <div id="error-message" class="text-danger mt-2" style="display: none;">As senhas não coincidem.</div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Incluindo o JS do Bootstrap e suas dependências -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Verificação de senha com JavaScript -->
+<script>
+    document.getElementById('changePasswordForm').addEventListener('submit', function(event) {
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var errorMessage = document.getElementById('error-message');
+
+        if (newPassword !== confirmPassword) {
+            errorMessage.style.display = 'block';
+            event.preventDefault(); // Impede o envio do formulário
+        } else {
+            errorMessage.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>

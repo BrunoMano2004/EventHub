@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .content {
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f1f1f1;
+            color: #555;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+        }
+        .jwt {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>EventHub</h1>
+    </div>
+    <div class="content">
+        <p>Olá,</p>
+        <p>Estamos enviando este email para você com seu código JWT. Utilize-o para validar seu acesso:</p>
+        <a class="jwt" th:href="${jwt}">Validar</a>
+        <p>Se você não solicitou esse código, por favor ignore este email.</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 EventHub. Todos os direitos reservados.</p>
+    </div>
+</div>
+</body>
+</html>

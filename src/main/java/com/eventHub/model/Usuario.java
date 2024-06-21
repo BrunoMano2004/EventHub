@@ -1,5 +1,8 @@
 package com.eventHub.model;
 
+import com.eventHub.dto.endereco.AtualizacaoEnderecoDto;
+import com.eventHub.dto.endereco.CadastroEnderecoDto;
+import com.eventHub.dto.usuario.AtualizacaoUsuarioDto;
 import com.eventHub.dto.usuario.CadastroUsuarioDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +31,7 @@ public class Usuario {
 
     private String identidade;
 
+    @Enumerated(value = EnumType.STRING)
     private TipoDocumento tipoDocumento;
 
     private String telefone;
@@ -38,11 +42,19 @@ public class Usuario {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Endereco endereco;
 
-    public void cadastrarUsuario(CadastroUsuarioDto dto){
+    public Usuario(CadastroUsuarioDto dto, CadastroEnderecoDto enderecoDto){
         this.nome = dto.nome();
         this.email = dto.email();
         this.telefone = dto.telefone();
         this.identidade = dto.identidade();
         this.tipoDocumento = TipoDocumento.valueOf(dto.tipoDocumento());
+        this.endereco = new Endereco(enderecoDto, this);
+    }
+
+    public void atualizarUsuario(AtualizacaoUsuarioDto usuarioDto, AtualizacaoEnderecoDto enderecoDto){
+        this.nome = usuarioDto.nome();
+        this.email = usuarioDto.email();
+        this.telefone = usuarioDto.telefone();
+        this.endereco = endereco.atualizarEndereco(enderecoDto);
     }
 }

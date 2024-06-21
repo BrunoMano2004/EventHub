@@ -1,4 +1,4 @@
-package com.eventHub.dto;
+package com.eventHub.dto.endereco;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

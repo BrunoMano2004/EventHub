@@ -25,7 +25,7 @@ public class EventoController {
 
     @GetMapping
     public ModelAndView listarTodosEventosDisponiveis(){
-        ModelAndView mv = new ModelAndView("eventos");
+        ModelAndView mv = new ModelAndView("index");
         List<ListagemEventosDto> eventos = eventoService.listarEventosDisponiveis();
 
         mv.addObject("eventos", eventos);
