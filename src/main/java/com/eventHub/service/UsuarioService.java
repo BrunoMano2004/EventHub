@@ -48,7 +48,7 @@ public class UsuarioService {
     @Autowired
     private JwtTokeUtil jwtTokeUtil;
 
-    private final String urlVerificacaoEmail = "http://localhost/verificar/";
+    private final String urlVerificacaoEmail = "http://localhost:8080/validar/";
 
     public void cadastrarUsuario(CadastroUsuarioDto usuarioDto, CadastroLoginDto loginDto, CadastroEnderecoDto enderecoDto) {
         Usuario usuario = new Usuario(usuarioDto, enderecoDto);

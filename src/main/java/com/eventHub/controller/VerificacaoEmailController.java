@@ -1,6 +1,5 @@
 package com.eventHub.controller;
 
-import com.eventHub.service.UsuarioService;
 import com.eventHub.service.ValidacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
