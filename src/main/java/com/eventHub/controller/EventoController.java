@@ -5,6 +5,7 @@ import com.eventHub.dto.evento.ListagemEventosDto;
 import com.eventHub.service.EventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,18 +35,20 @@ public class EventoController {
 
     @GetMapping("/pesquisar")
     public ModelAndView listarEventosPesquisados(String nomeEvento){
-        ModelAndView mv = new ModelAndView("eventos");
+        ModelAndView mv = new ModelAndView("index");
         List<ListagemEventosDto> eventos = eventoService.listarEventosPeloNome(nomeEvento);
 
         mv.addObject("eventos", eventos);
         return mv;
     }
 
+    @PreAuthorize("hasRole('ORGANIZER')")
     @GetMapping("/cadastrar")
     public String cadastrarEvento(){
         return "cadastroEvento";
     }
 
+    @PreAuthorize("hasRole('ORGANIZER')")
     @PostMapping("/cadastrar")
     @Transactional
     public String cadastrarEventoPost(@Valid CadastroEventoDto dto){

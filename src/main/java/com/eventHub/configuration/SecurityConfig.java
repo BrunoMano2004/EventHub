@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/eventos/cadastrar").hasRole("ORGANIZER")
+                        .requestMatchers("/usuarios/dashboard").authenticated()
                         .requestMatchers("/eventos").permitAll()
                         .requestMatchers("/eventos/pesquisar").permitAll()
                         .requestMatchers("/usuarios/cadastro").permitAll()

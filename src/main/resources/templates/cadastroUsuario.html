@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +15,7 @@
         <div class="form-group">
             <label for="nome">Nome Completo:</label>
             <input type="text" class="form-control" id="name" name="nome" required>
+            <span th:if=""
         </div>
         <div class="form-group">
             <label for="email">E-mail:</label>
@@ -22,7 +23,7 @@
         </div>
         <div class="form-group">
             <label for="identidade">CPF/CNPJ:</label>
-            <input type="text" class="form-control" id="identidade" name="identidade" required>
+            <input type="text" class="form-control" id="identidade" name="identidade" th:maxlength="14" required>
         </div>
         <label for="documento">Tipo de documento:</label>
         <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
@@ -52,21 +53,25 @@
         </div>
         <div class="mb-3">
             <label for="logradouro" class="form-label">Logradouro:</label>
-            <input type="text" class="form-control" id="logradouro" name="logradouro" required>
+            <input type="text" class="form-control" id="logradouro" name="logradouro" th:field="*{enderecoDto.logradouro}" required>
+            <span th:if="${#fields.hasErrors('enderecoDto.logradouro')}" th:errors="*{enderecoDto.logradouro}">Erro no Logradouro</span>
         </div>
         <div class="mb-3">
             <label for="bairro" class="form-label">Bairro:</label>
-            <input type="text" class="form-control" id="bairro" name="bairro" required>
+            <input type="text" class="form-control" id="bairro" name="bairro" th:field="*{enderecoDto.bairro}" required>
+            <span th:if="${#fields.hasErrors('enderecoDto.bairro')}" th:errors="*{enderecoDto.bairro}">Erro no Bairro</span>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
                 <label for="numero" class="form-label">Número:</label>
-                <input type="text" class="form-control" id="numero" name="numero" required>
+                <input type="text" class="form-control" id="numero" th:field="*{enderecoDto.numero}" name="numero" required>
+                <span th:if="${#fields.hasErrors('enderecoDto.numero')}" th:errors="*{enderecoDto.numero}">Erro no Numero</span>
             </div>
             <div class="col-md-6">
                 <label for="complemento" class="form-label">Complemento:</label>
-                <input type="text" class="form-control" id="complemento" name="complemento">
+                <input type="text" class="form-control" id="complemento" th:field="*{enderecoDto.complemento}" name="complemento">
+                <span th:if="${#fields.hasErrors('enderecoDto.complemento')}" th:errors="*{enderecoDto.complemento}">Erro no Complemento</span>
             </div>
         </div>
 
@@ -145,8 +150,6 @@
         }
     });
 });
-
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
