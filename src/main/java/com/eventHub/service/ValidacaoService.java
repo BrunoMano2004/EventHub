@@ -17,11 +17,15 @@ public class ValidacaoService {
     private LoginRepository loginRepository;
 
     public void validarEmail(String jwt) {
-        String email = jwtTokeUtil.extractUsername(jwt);
-        Login login = loginRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Login não encontrado para o email!"));
-        if (jwtTokeUtil.validateToken(jwt)){
-            login.setAtivo(true);
-        } else {
+        try {
+            String email = jwtTokeUtil.extractUsername(jwt);
+            Login login = loginRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Login não encontrado para o email!"));
+            if (jwtTokeUtil.validateToken(jwt)){
+                login.setAtivo(true);
+            } else {
+                throw new ValidacaoEmailException("Token inválido ou vencido!");
+            }
+        } catch (Exception e){
             throw new ValidacaoEmailException("Token inválido ou vencido!");
         }
     }

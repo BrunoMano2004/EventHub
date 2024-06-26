@@ -1,5 +1,6 @@
 package com.eventHub.controller;
 
+import com.eventHub.exception.ValidacaoEmailException;
 import com.eventHub.service.ValidacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,11 @@ public class VerificacaoEmailController {
     @GetMapping("/validar/{jwt}")
     @Transactional
     public String validarEmail(@PathVariable String jwt){
-        validacaoService.validarEmail(jwt);
-        return "redirect:/login";
+        try {
+            validacaoService.validarEmail(jwt);
+            return "redirect:/login";
+        } catch (ValidacaoEmailException e){
+            return "falhaVerificacaoEmail";
+        }
     }
 }

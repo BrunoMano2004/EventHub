@@ -42,6 +42,8 @@ public class Usuario {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Endereco endereco;
 
+
+
     public Usuario(CadastroUsuarioDto dto, CadastroEnderecoDto enderecoDto){
         this.nome = dto.nome();
         this.email = dto.email();

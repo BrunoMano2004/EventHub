@@ -1,8 +1,10 @@
 package com.eventHub.controller;
 
+import com.eventHub.dto.endereco.AtualizacaoEnderecoDto;
 import com.eventHub.dto.endereco.CadastroEnderecoDto;
 import com.eventHub.dto.endereco.ListagemEnderecoDto;
 import com.eventHub.dto.login.CadastroLoginDto;
+import com.eventHub.dto.usuario.AtualizacaoUsuarioDto;
 import com.eventHub.dto.usuario.CadastroUsuarioDto;
 import com.eventHub.dto.usuario.ListagemUsuarioDto;
 import com.eventHub.model.Usuario;
@@ -118,7 +120,71 @@ class UsuarioControllerTest {
                 .andExpect(redirectedUrl("http://localhost/login"));
     }
 
-//    @Test
-//    void deveria
+    @Test
+    @WithMockUser(username = "user")
+    void deveriaRedirecionarParaPaginaDashboardComEmailSemAlteracaoEComDadosValidos() throws Exception {
+        when(usuarioService.atualizarDadosUsuario(any(AtualizacaoUsuarioDto.class), any(AtualizacaoEnderecoDto.class))).thenReturn(true);
 
+        mvc.perform(
+                post("/usuarios/dashboard")
+                        .param("id", "10")
+                        .param("nome", "nome")
+                        .param("email", "email@email.com")
+                        .param("telefone", "11999999999")
+                        .param("logradouro", "logradouro")
+                        .param("numero", "99")
+                        .param("bairro", "bairro")
+                        .param("cidade", "cidade")
+                        .param("uf", "uf")
+                        .param("cep", "99999999")
+        ).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/usuarios/dashboard"));
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void deveriaRetornarPaginaDeVerificacaoDeEmailComEmailComAlteracaoEComDadosValidos() throws Exception {
+        when(usuarioService.atualizarDadosUsuario(any(AtualizacaoUsuarioDto.class), any(AtualizacaoEnderecoDto.class))).thenReturn(false);
+
+        mvc.perform(
+                        post("/usuarios/dashboard")
+                                .param("id", "10")
+                                .param("nome", "nome")
+                                .param("email", "email@email.com")
+                                .param("telefone", "11999999999")
+                                .param("logradouro", "logradouro")
+                                .param("numero", "99")
+                                .param("bairro", "bairro")
+                                .param("cidade", "cidade")
+                                .param("uf", "uf")
+                                .param("cep", "99999999")
+                ).andExpect(status().isOk())
+                .andExpect(view().name("avisoValidacaoEmail"));
+    }
+
+    @Test
+    @WithMockUser(username = "user")
+    void deveriaRedirecionarPaginaDeLoginComDadosInvalidos() throws Exception {
+        mvc.perform(
+                        post("/usuarios/dashboard")
+                                .param("id", "")
+                                .param("nome", "")
+                                .param("email", "")
+                                .param("telefone", "")
+                                .param("logradouro", "")
+                                .param("numero", "")
+                                .param("bairro", "")
+                                .param("cidade", "")
+                                .param("uf", "")
+                                .param("cep", "")
+                ).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    void deveriaRedirecionarPaginaDeLoginSemUsuarioLogado() throws Exception {
+        mvc.perform(
+                        post("/usuarios/dashboard")
+                ).andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/login"));
+    }
 }
